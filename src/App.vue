@@ -1,16 +1,12 @@
 <template>
-    <div>
-        <Player />
-    </div>
+  <div>
+    <Player />
+  </div>
 </template>
-
 
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-import Player from "./components/Player.vue"
+import Player from "./components/Player.vue";
 </script>
 
-
-<style scoped>
-
-</style>
+<style scoped></style>
