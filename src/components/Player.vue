@@ -6,7 +6,7 @@
         <button
           type="button"
           class="btn btn-success btn-sm"
-          @click="getinfo(client)"
+          @click="getPlayersByClient(client)"
         >
           Consultar
         </button>
@@ -14,7 +14,7 @@
     </div>
 
     <div class="row justify-content-center mt-5">
-      <div class="col-8">
+      <div class="col-10">
         <ul class="list-group">
           <li
             v-for="(player, index) in players.data"
@@ -23,18 +23,23 @@
           >
             <div class="row justify-content-center">
               <div class="col-2">
-                <i
-                  class="bi bi-circle-fill"
-                  :style="statusConnectionPlayer"
-                ></i>
+                <i class="bi bi-circle-fill" style="color: red"></i>
                 <!-- status: {{player.connected}} -->
               </div>
-              <div class="col-5">
-                <span>conectado: {{ player.connected_at }}</span>
-              </div>
-              <div class="col-5">
+              <div class="col-2">
                 <span>client Id: {{ player.clientid }}</span>
-                <span> suscriptions: {{ player.subscriptions_cnt }}</span>
+              </div>
+              <div class="col-4">
+                <span>ver mas</span>
+              </div>
+              <div class="col-4">
+                <button
+                  type="button"
+                  class="btn btn-success btn-sm"
+                  @click="changeStreaming()"
+                >
+                  cambiar emision
+                </button>
               </div>
             </div>
           </li>
@@ -59,11 +64,11 @@ export default {
     };
   },
   methods: {
-    getinfo: async function (client) {
+    getPlayersByClient: async function (client) {
       this.players = "";
       this.message = "saludos";
       this.players = await axios.get(
-        "http://localhost:3000/v1/streaming/wc/info",
+        "http://localhost:3000/v1/streaming/players",
         {
           params: {
             client: client,
@@ -71,16 +76,16 @@ export default {
         }
       );
     },
-  },
-  computed: {
-    statusConnectionPlayer: function () {
-      if (player.connected) {
-        return "color: green;";
-      } else {
-        return "color: red;";
-      }
+    changeStreaming: async function () {
+      console.log("simulando boton de cambio");
+      console.log(this.players.data);
     },
   },
+  // computed: {
+  //   statusConnectionPlayer: function () {
+  //     return player.connected ? "color: green" : "color: red";
+  //   },
+  // },
 };
 </script>
 
